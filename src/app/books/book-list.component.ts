@@ -6,16 +6,18 @@ import { BookService } from './book.service'
 	selector: 'book-list',
 	templateUrl: 'book-list.component.html'
 })
-export class BookListComponent implements OnInit {
+export class BookListComponent {
 	errorMessage: string;
 	books: IBook[];
+	query: string;
 
 	constructor(private _bookService: BookService) {
 
 	}
 
-	ngOnInit(): void {
-		this._bookService.getBooks()
+	searchBooks(): void {
+		console.log(this.query);
+		this._bookService.getBooks(this.query)
 			.subscribe(books => this.books = books,
 						error => this.errorMessage = <any>error);
 	}

@@ -11,11 +11,12 @@ import { IBook } from './book';
 @Injectable()
 export class BookService {
 	private API_KEY = 'AIzaSyAN3JdoTtSXyeQ35LYA5plroxM3gizMhaQ';
-	private _apiUrl = 'https://www.googleapis.com/books/v1/volumes?q=harry&key=' + this.API_KEY;
+	private _apiUrl: string;
 
 	constructor(private _http: Http){}
 
-	getBooks(): Observable<IBook[]> {
+	getBooks(query: string): Observable<IBook[]> {
+		this._apiUrl = 'https://www.googleapis.com/books/v1/volumes?q=' + query + '&key=' + this.API_KEY;
 		return this._http.get(this._apiUrl)
 			.map((response: Response) => response.json())
 			.map((result) => result.items.map(this.transformItems))

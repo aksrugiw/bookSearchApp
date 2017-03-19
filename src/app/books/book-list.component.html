@@ -1,9 +1,20 @@
-<div class="ui list">
-  <div class="item" *ngFor="let book of books">
-    <img class="ui avatar image" src="{{book.image}}">
-    <div class="content">
-      <strong>{{book.title}}</strong>
-      <div class="description">{{book.author}}</div>
-    </div>
-  </div>
+<div class="ui container">
+	<h1>Wyszukiwarka książek</h1>
+	<div class="ui icon input">
+	  <input type="text" placeholder="Search..." [(ngModel)]="query">
+	  <i class="circular search link icon" (click)="searchBooks()"></i>
+	</div>
+	<p>Szukasz: {{query}} </p>
+	<div class="ui container">
+	<div class="ui list">
+	  <div class="item" *ngFor="let book of books">
+	    <img class="ui avatar image" src="{{book.image}}">
+	    <div class="content">
+	      <strong>{{book.title}}</strong>
+	      <div class="description">{{book.author}}</div>
+	    </div>
+	  </div>
+	</div>
 </div>
+</div>
+

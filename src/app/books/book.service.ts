@@ -17,8 +17,8 @@ export class BookService {
 
 	getBooks(): Observable<IBook[]> {
 		return this._http.get(this._apiUrl)
-			.map((response: Response) => <IBook[]> response.json())
-			.do(data => console.log( JSON.stringify(data)))
+			.map((response: Response) => response.json())
+			.map((result) => result.items.map(this.transformItems))
 			.catch(this.handleError);
 	}
 
@@ -26,6 +26,16 @@ export class BookService {
 	// 	return this.getProducts()
  //            .map((products: IBook[]) => products.find(p => p.productId === id));
 	// }
+
+	private transformItems(bookItem): IBook {
+		let book = bookItem.volumeInfo;
+	    return {
+	        title : book.title,
+	        subtitle: book.subtitle,
+	        author: book.authors ? book.authors[0] : 'Unknown',
+	        image : book.imageLinks ? book.imageLinks.thumbnail : 'http://books.google.com/books/content?id=PXa2bby0oQ0C&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api'
+	    }
+	}
 
 	private handleError(error: Response) {
 		console.log(error);

@@ -1,1 +1,9 @@
-lista książek
+<div class="ui list">
+  <div class="item" *ngFor="let book of books">
+    <img class="ui avatar image" src="{{book.image}}">
+    <div class="content">
+      <strong>{{book.title}}</strong>
+      <div class="description">{{book.author}}</div>
+    </div>
+  </div>
+</div>
